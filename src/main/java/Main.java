@@ -28,7 +28,7 @@ public class Main {
                 for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
 
-                    System.out.printf("번호 : %d", i + 1;
+                    System.out.printf("번호 : %d", i + 1);
                     System.out.printf("제목 : %s", article.getTitle());
                     System.out.println("==================");
                 }
@@ -38,15 +38,33 @@ public class Main {
 
                 scan.nextLine();
 
-                System.out.print("제목 : ");
-                String newTitle = scan.nextLine();
-                System.out.print("내용 : ");
-                String newContent = scan.nextLine();
+                if (0 < target && target < articles.size()) {
+                    System.out.print("제목 : ");
+                    String newTitle = scan.nextLine();
+                    System.out.print("내용 : ");
+                    String newContent = scan.nextLine();
 
-                Article newArticle = new Article(newTitle, newContent);
-                articles.set(target-1, newArticle);
+                    Article newArticle = new Article(newTitle, newContent);
+                    articles.set(target - 1, newArticle);
 
-                System.out.println("수정이 완료되었습니다.");
+                    System.out.println("수정이 완료되었습니다.");
+                }else{
+                    System.out.println("없는 게시물입니다.");
+                }
+
+
+            } else if (command.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
+                int target = scan.nextInt();
+
+                scan.nextLine();
+
+                if(0 < target && target < articles.size()){
+                    articles.remove(target - 1);
+                    System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
+                } else{
+                    System.out.println("없는 게시물입니다.");
+                }
             }
         }
     }
