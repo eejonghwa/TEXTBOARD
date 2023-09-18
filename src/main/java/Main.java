@@ -26,6 +26,19 @@ public class Main {
                     System.out.printf("내용 : %s", contents.get(i));
                     System.out.println("==================");
                 }
+            }else if(command.equals("update")){
+                System.out.print("수정할 게시물 번호 : ");
+                int target = scan.nextInt();
+
+                scan.nextLine();
+
+                System.out.print("제목 : ");
+                String newTitle = scan.nextLine();
+                System.out.print("내용 : ");
+                String newContent = scan.nextLine();
+
+                titles.set(target -1, newTitle);
+                contents.set(target -1, newContent);
             }
         }
     }
