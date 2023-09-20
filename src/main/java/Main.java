@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +24,13 @@ public class Main {
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String content = scan.nextLine();
 
-                Article article = new Article(lastArticleId, title, content);
+                LocalDateTime now = LocalDateTime.now();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+
+                String formatedNow = now.format(formatter);
+
+                Article article = new Article(lastArticleId, title, content, formatedNow);
                 articles.add(article);
 
                 System.out.println("게시물이 등록되었습니다.");
@@ -71,6 +79,7 @@ public class Main {
                     articles.remove(article);
                 }
             } else if (command.equals("detail")) {
+                System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
                 int targetId = scan.nextInt();
                 scan.nextLine();
                 Article article = findById(targetId);
@@ -82,9 +91,9 @@ public class Main {
                     System.out.printf("번호 : %d\n", article.getId());
                     System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.printf("등록일 : %s\n", article.getRegDate());
                     System.out.println("==================");
                 }
-
             }
         }
     }
