@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static ArrayList<Article> articles = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
-        ArrayList<Article> articles = new ArrayList<>();
         int lastArticleId = 1;
 
         while (true) {
@@ -87,7 +88,35 @@ public class Main {
                 if (isExist == false) {
                     System.out.println("없는 게시물입니다.");
                 }
+            } else if (command.equals("detail")) {
+                int targetId = scan.nextInt();
+                scan.nextLine();
+                Article article = findById(targetId);
+
+                if(article == null){
+                    System.out.println("존재하지 않는 게시물");
+                }else{
+                    System.out.println("==================");
+                    System.out.printf("번호 : %d\n", article.getId());
+                    System.out.printf("제목 : %s\n", article.getTitle());
+                    System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.println("==================");
+                }
+
             }
         }
+    }
+
+    public static Article findById(int id) {
+
+        Article target = null;
+
+        for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            if (id == article.getId()) {
+                target = article;
+            }
+        }
+        return target;
     }
 }
