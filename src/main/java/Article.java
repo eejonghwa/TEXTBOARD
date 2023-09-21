@@ -4,6 +4,16 @@ public class Article {
     private String content;
     private String regDate;
 
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+
+    private int hit;
+
     public Article(int id, String title, String content, String regDate) {
         this.id = id;
         this.title = title;

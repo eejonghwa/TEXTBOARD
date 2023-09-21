@@ -12,8 +12,7 @@ public class Main {
         Article a2 = new Article(2, "자바 질문좀 할게요~.", "냉무", getCurrentDate());
         Article a3 = new Article(3, "정처기 따야되나요?", "냉무", getCurrentDate());
         Scanner scan = new Scanner(System.in);
-//        ArrayList<String> titles = new ArrayList<>();
-//        ArrayList<String> contents = new ArrayList<>();
+
         int lastArticleId = 1;
 
         while (true) {
@@ -34,15 +33,8 @@ public class Main {
                 System.out.println("게시물이 등록되었습니다.");
                 lastArticleId++;
             } else if (command.equals("list")) {
-                System.out.println("==================");
-                for (int i = 0; i < articles.size(); i++) {
+                printArticles(articles);
 
-                    Article article = articles.get(i);
-
-                    System.out.printf("번호 : %d\n", article.getId());
-                    System.out.printf("제목 : %s\n", article.getTitle());
-                    System.out.println("==================");
-                }
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호 : ");
                 int targetId = scan.nextInt();
@@ -70,7 +62,9 @@ public class Main {
                 int targetId = scan.nextInt();
 
                 scan.nextLine();
+
                 Article article = findById(targetId);
+
                 if (article == null) {
                     System.out.println("존재하지않는 게시물");
                 } else {
@@ -85,6 +79,8 @@ public class Main {
                 if (article == null) {
                     System.out.println("존재하지 않는 게시물");
                 } else {
+                    article.setHit(article.getHit() + 1);
+
                     System.out.println("==================");
                     System.out.printf("번호 : %d\n", article.getId());
                     System.out.printf("제목 : %s\n", article.getTitle());
@@ -92,18 +88,18 @@ public class Main {
                     System.out.printf("등록일 : %s\n", article.getRegDate());
                     System.out.println("==================");
                 }
-            }else if (command.equals("search")){
+            } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요.");
                 String keyword = scan.nextLine();
 
                 ArrayList<Article> searchedArticles = new ArrayList<>();
 
                 System.out.println("==================");
-                for(int i = 0; i < articles.size(); i++){
+                for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
                     String title = article.getTitle();
 
-                    if(title.contains(keyword)){
+                    if (title.contains(keyword)) {
                         searchedArticles.add(article);
                     }
                 }
@@ -124,7 +120,8 @@ public class Main {
         }
         return target;
     }
-    public static String getCurrentDate(){
+
+    public static String getCurrentDate() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         String formatedNow = now.format(formatter);
@@ -132,9 +129,9 @@ public class Main {
         return formatedNow;
     }
 
-    public static void printArticles(ArrayList<Article> list){
+    public static void printArticles(ArrayList<Article> list) {
         System.out.println("==================");
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             Article article = list.get(i);
 
             System.out.printf("번호 : %d\n", article.getId());
