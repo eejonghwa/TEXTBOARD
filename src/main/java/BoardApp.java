@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class BoardApp {
 
     ArrayList<Article> articles = new ArrayList<>();
+    ArticleView articleView = new ArticleView();
 
     public void start() {
         Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "냉무", getCurrentDate());
@@ -38,7 +39,7 @@ public class BoardApp {
                 System.out.println("게시물이 등록되었습니다.");
                 lastArticleId++;
             } else if (command.equals("list")) {
-                printArticles(articles);
+                articleView.printArticles(articles);
 
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호 : ");
@@ -85,13 +86,7 @@ public class BoardApp {
                     System.out.println("존재하지 않는 게시물");
                 } else {
                     article.setHit(article.getHit() + 1);
-
-                    System.out.println("==================");
-                    System.out.printf("번호 : %d\n", article.getId());
-                    System.out.printf("제목 : %s\n", article.getTitle());
-                    System.out.printf("내용 : %s\n", article.getContent());
-                    System.out.printf("등록일 : %s\n", article.getRegDate());
-                    System.out.println("==================");
+                    articleView.printArticleDetail(article);
                 }
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요.");
@@ -108,7 +103,7 @@ public class BoardApp {
                         searchedArticles.add(article);
                     }
                 }
-                printArticles(searchedArticles);
+                articleView.printArticles(searchedArticles);
             }
         }
     }
@@ -134,16 +129,4 @@ public class BoardApp {
         return formatedNow;
     }
 
-    public void printArticles(ArrayList<Article> list) {
-        System.out.println("==================");
-        for (int i = 0; i < list.size(); i++) {
-            Article article = list.get(i);
-
-            System.out.printf("번호 : %d\n", article.getId());
-            System.out.printf("제목 : %s\n", article.getTitle());
-            System.out.printf("등록날짜 : %s\n", article.getRegDate());
-
-            System.out.println("==================");
-        }
-    }
 }
