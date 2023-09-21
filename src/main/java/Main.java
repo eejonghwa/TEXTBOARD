@@ -7,6 +7,10 @@ public class Main {
     static ArrayList<Article> articles = new ArrayList<>();
 
     public static void main(String[] args) {
+
+        Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "냉무", getCurrentDate());
+        Article a2 = new Article(2, "자바 질문좀 할게요~.", "냉무", getCurrentDate());
+        Article a3 = new Article(3, "정처기 따야되나요?", "냉무", getCurrentDate());
         Scanner scan = new Scanner(System.in);
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
@@ -24,13 +28,7 @@ public class Main {
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String content = scan.nextLine();
 
-                LocalDateTime now = LocalDateTime.now();
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
-
-                String formatedNow = now.format(formatter);
-
-                Article article = new Article(lastArticleId, title, content, formatedNow);
+                Article article = new Article(lastArticleId, title, content, getCurrentDate());
                 articles.add(article);
 
                 System.out.println("게시물이 등록되었습니다.");
@@ -109,5 +107,12 @@ public class Main {
             }
         }
         return target;
+    }
+    public static String getCurrentDate(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        String formatedNow = now.format(formatter);
+
+        return formatedNow;
     }
 }
